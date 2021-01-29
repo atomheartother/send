@@ -22,6 +22,7 @@ module.exports = {
   download: async function(req, res, next) {
     const id = req.params.id;
     const appState = await state(req);
+    console.log("Received request for id:", req.params.id)
     try {
       const { nonce, pwd } = await storage.metadata(id);
       res.set('WWW-Authenticate', `send-v1 ${nonce}`);
@@ -36,6 +37,7 @@ module.exports = {
         )
       );
     } catch (e) {
+      console.error(e)
       next();
     }
   },
